@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Animals4Live
+
+  Sample SAM Template for Animals4Live Serverless Application
+
+Globals:
+  Function:
+    Timeout: 20
+    MemorySize: 512
+
+Resources:
+  Animals4LiveFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda
+      Handler: com.animals4live.App::handleRequest
+      Runtime: java21
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      FunctionUrlConfig:
+        AuthType: AWS_IAM
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowHeaders:
+            - '*'
+          AllowMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+
+Outputs:
+  Animals4LiveFunction:
+    Description: "Animals4Live Lambda Function ARN"
+    Value: !GetAtt Animals4LiveFunction.Arn
+  Animals4LiveFunctionIamRole:
+    Description: "Implicit IAM Role created for Animals4Live function"
+    Value: !GetAtt Animals4LiveFunctionRole.Arn
+  Animals4LiveFunctionUrl:
+    Description: "Animals4Live Lambda Function URL"
+    Value: !GetAtt Animals4LiveFunctionUrl.FunctionUrl
