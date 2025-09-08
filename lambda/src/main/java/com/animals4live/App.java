@@ -12,6 +12,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.animals4live.server.model.CreateReport;
+import com.animals4live.server.model.CreateReportInput;
 
 /**
  * Handler for requests to Lambda function.
@@ -22,6 +24,14 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
+
+        CreateReportInput createReportInput = CreateReportInput.builder()
+                .bodyText("new Text")
+                .title("TITLE!!!")
+                .build();
+
+        context.getLogger().log("Title: " + createReportInput.getTitle());
+        context.getLogger().log("bodyText: " + createReportInput.getBodyText());
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
