@@ -1,10 +1,4 @@
 {
   "version": "1.0",
-  "sources": ["smithy"],
-  "plugins": {
-    "java-server-codegen": {
-      "service": "com.animals4live#Animals4Live",
-      "namespace": "com.animals4live.server"
-    }
-  }
+  "sources": ["src/main/smithy"]
 }

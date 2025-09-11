@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "projections": {
+    "java-server": {
+      "plugins": {
+        "java-server-codegen": {
+          "service": "com.animals4live#Animals4Live",
+          "namespace": "com.animals4live.server"
+        }
+      }
+    }
+  }
+}
