@@ -5,7 +5,7 @@ namespace com.animals4live
 use aws.protocols#restJson1
 
 @restJson1
-service Animals4Live {
+service Animals4LiveService {
     version: "2025-01-01"
     resources: [
         Report

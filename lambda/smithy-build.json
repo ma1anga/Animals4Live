@@ -4,7 +4,7 @@
     "java-server": {
       "plugins": {
         "java-server-codegen": {
-          "service": "com.animals4live#Animals4Live",
+          "service": "com.animals4live#Animals4LiveService",
           "namespace": "com.animals4live.server"
         }
       }

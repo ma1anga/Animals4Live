@@ -16,6 +16,11 @@ dependencies {
 
     implementation(project(":model"))
 
+    annotationProcessor("com.google.auto.service:auto-service:1.1.1")
+    compileOnly("com.google.auto.service:auto-service:1.1.1")
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.19.2")
+
     implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
     implementation("com.amazonaws:aws-lambda-java-events:3.11.0")
 

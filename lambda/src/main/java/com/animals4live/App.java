@@ -10,16 +10,28 @@ import java.util.stream.Collectors;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 import com.animals4live.server.model.CreateReportInput;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Handler for requests to Lambda function.
  */
-public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class App implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
-    public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
+    public APIGatewayV2HTTPResponse handleRequest(final APIGatewayV2HTTPEvent input, final Context context) {
+        final ObjectMapper objectMapper = new ObjectMapper();
+
+        var logger = context.getLogger();
+
+        try {
+            logger.log(new ObjectMapper().writeValueAsString(input));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
@@ -32,19 +44,13 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         context.getLogger().log("Title: " + createReportInput.getTitle());
         context.getLogger().log("bodyText: " + createReportInput.getBodyText());
 
-        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
-                .withHeaders(headers);
         try {
             final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
             String output = String.format("{ \"message\": \"hello world\", \"location\": \"%s\" }", pageContents);
 
-            return response
-                    .withStatusCode(200)
-                    .withBody(output);
+            return APIGatewayV2HTTPResponse.builder().build();
         } catch (IOException e) {
-            return response
-                    .withBody("{}")
-                    .withStatusCode(500);
+            return APIGatewayV2HTTPResponse.builder().build();
         }
     }
 

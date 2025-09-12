@@ -15,7 +15,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: lambda
-      Handler: com.animals4live.App::handleRequest
+      Handler: software.amazon.smithy.java.aws.integrations.lambda.LambdaEndpoint::handleRequest
       Runtime: java21
       Architectures:
         - x86_64
