@@ -48,9 +48,11 @@ public class App implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HT
             final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
             String output = String.format("{ \"message\": \"hello world\", \"location\": \"%s\" }", pageContents);
 
-            return APIGatewayV2HTTPResponse.builder().build();
+            return APIGatewayV2HTTPResponse.builder().withStatusCode(200).withBody(output).build();
         } catch (IOException e) {
-            return APIGatewayV2HTTPResponse.builder().build();
+            String exceptionMessage = e.getMessage();
+            logger.log(exceptionMessage);
+            return APIGatewayV2HTTPResponse.builder().withStatusCode(500).withBody(String.format("{\"ErrorMessage\": \"Something went wrong: %s\"}", exceptionMessage)).build();
         }
     }
 
