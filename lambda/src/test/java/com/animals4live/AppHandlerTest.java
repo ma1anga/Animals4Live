@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class AppTest {
+public class AppHandlerTest {
 
     @Ignore
     @Test

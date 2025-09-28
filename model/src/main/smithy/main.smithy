@@ -2,9 +2,9 @@ $version: "2"
 
 namespace com.animals4live
 
-use aws.protocols#restJson1
+use aws.protocols#awsJson1_1
 
-@restJson1
+@awsJson1_1
 service Animals4LiveService {
     version: "2025-01-01"
     resources: [
@@ -25,10 +25,8 @@ resource Report {
 }
 
 @readonly
-@http(method: "GET", uri: "/app/report/{reportId}")
 operation GetReport {
     input := for Report {
-        @httpLabel
         @required
         $reportId
     }
@@ -45,7 +43,6 @@ operation GetReport {
     }
 }
 
-@http(method: "POST", uri: "/app/report")
 operation CreateReport {
     input := for Report {
         @required
@@ -68,11 +65,3 @@ operation CreateReport {
 }
 
 string ReportId
-
-structure CreateReportInput {
-    @required
-    title: String
-
-    @required
-    bodyText: String
-}
