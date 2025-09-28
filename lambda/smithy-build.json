@@ -1,12 +1,12 @@
 {
   "version": "1.0",
   "projections": {
-    "java-server": {
+    "java-types": {
+      "transforms": [
+        { "name": "includeNamespaces", "args": { "namespaces": ["com.animals4live"] } }
+      ],
       "plugins": {
-        "java-server-codegen": {
-          "service": "com.animals4live#Animals4LiveService",
-          "namespace": "com.animals4live.server"
-        }
+        "java-type-codegen": { "namespace": "com.animals4live" }
       }
     }
   }
